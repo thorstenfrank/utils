@@ -24,6 +24,10 @@ package de.tfsw.utils;
  */
 public final class IntegerByteConverter {
 	
+	private static final int OCTET = 8;
+	
+	private static final int BYTE_MASK = 0xFF;
+	
 	/**
 	 * 
 	 */
@@ -47,8 +51,8 @@ public final class IntegerByteConverter {
 		int val = 0;
 		
 		for (byte b : bytes) {
-			val <<= 8;
-			val = val | (b & 0XFF);
+			val <<= OCTET;
+			val = val | (b & BYTE_MASK);
 		}
 		return val;
 	}
@@ -70,8 +74,8 @@ public final class IntegerByteConverter {
 		byte[] result = new byte[size];
 		int temp = value;
 		for (int i=size-1; i >= 0; i--) {
-			result[i] = (byte) temp;
-			temp >>= 8;
+			result[i] = (byte) (temp & BYTE_MASK);
+			temp >>= OCTET;
 		}
 		
 		return result;
